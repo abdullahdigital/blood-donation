@@ -1,0 +1,105 @@
+<!-- about.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block css %}
+<style>
+    .section-padding {
+        padding: 4rem 0;
+        background: linear-gradient(180deg, #230C0C 0%, #893030 100%);
+        color: white;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #fff;
+    }
+    
+    .section-subtitle {
+        font-size: 1.2rem;
+        color: #ddd;
+    }
+    
+    .about-content h3 {
+        font-size: 1.8rem;
+        color: #fff;
+    }
+    
+    .about-content p {
+        font-size: 1rem;
+        color: #ccc;
+        text-align: justify;
+    }
+    
+    .team-members li {
+        margin-bottom: 0.5rem;
+        color: #eee;
+    }
+    
+    .team-members li strong {
+        color: #fff;
+    }
+    
+    hr {
+        border-top: 1px solid #444;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section id="about" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="text-center mb-5">
+                    <h2 class="section-title">About Us</h2>
+                    <p class="section-subtitle">Connecting Blood Donors with Seekers</p>
+                </div>
+
+                <div class="about-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Our Mission</h3>
+                            <p>We are dedicated to ensuring timely access to blood by connecting donors with seekers through our platform.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Our Vision</h3>
+                            <p>To eliminate the suffering caused by blood shortages, ensuring no one faces the consequences of unmet blood needs during emergencies.</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row mt-5">
+                        <div class="col-md-6">
+                            <h3>Our Team</h3>
+                            <ul class="list-unstyled team-members">
+                                <li><strong>John Doe</strong> - Founder and CEO</li>
+                                <li><strong>Jane Smith</strong> - Chief Technology Officer</li>
+                                <li><strong>Michael Johnson</strong> - Head of Operations</li>
+                                <li><strong>Emily Brown</strong> - Lead Developer</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>History</h3>
+                            <p>Founded in 2024, our organization started with a simple yet powerful idea: to leverage technology to streamline the blood donation process.</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <h3>Contact Us</h3>
+                            <p>If you have any questions or inquiries, please feel free to reach out to us at <strong>abc@gmail.com</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

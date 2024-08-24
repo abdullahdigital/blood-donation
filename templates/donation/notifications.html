@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="white">Notifications</h1>
+
+    {% if notifications %}
+        <div class="row">
+            {% for notification in notifications %}
+                <div class="col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p><strong>Request ID:</strong> {{ notification.blood_request.id }}</p>
+                            <p><strong>Status:</strong> <span id="status-{{ notification.id }}">{{ notification.status }}</span></p>
+                            <p><strong>Date:</strong> {{ notification.created_at }}</p>
+                            <div id="actions-{{ notification.id }}">
+                                {% if user == notification.donor.user %}
+                                    {% if notification.status == 'pending' %}
+                                        <button class="btn btn-success" onclick="updateStatus('{{ notification.id }}', 'approved')">Accept</button>
+                                        <button class="btn btn-danger" onclick="updateStatus('{{ notification.id }}', 'rejected')">Reject</button>
+                                    {% else %}
+                                        <p>Status updated to {{ notification.status }}.</p>
+                                    {% endif %}
+                                {% elif user == notification.blood_request.user and notification.status == 'approved' %}
+                                    <p>Status updated to {{ notification.status }}.</p>
+                                    <a id="link-{{ notification.id }}" href="/request_blood_success/{{ notification.blood_request.id }}/" class="btn btn-info">View Donor Details</a>
+                                {% else %}
+                                    <p>Status updated to {{ notification.status }}.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You have no notifications.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+    function updateStatus(notificationId, newStatus) {
+        fetch(`/update-notification-status/${notificationId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({ status: newStatus })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById(`status-${notificationId}`).innerText = newStatus;
+                let actionsHtml = `<p>Status updated to ${newStatus}.</p>`;
+                if (newStatus === 'approved' && data.blood_request_id) {
+                    const url = `/request_blood_success/${data.blood_request_id}/`;
+                    actionsHtml += `<a href="${url}" class="btn btn-info">View Donor Details</a>`;
+                }
+                document.getElementById(`actions-${notificationId}`).innerHTML = actionsHtml;
+            } else {
+                alert('Failed to update status: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while updating the status.');
+        });
+    }
+</script>
+{% endblock %}

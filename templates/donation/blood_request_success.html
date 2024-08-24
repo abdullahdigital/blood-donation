@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Blood Request Success{% endblock %}
+
+{% block css %}
+<style>
+    .request-success-container {
+        margin: 5rem auto;
+        padding: 2rem;
+        max-width: 800px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e0e0e0;
+    }
+
+    .request-success-container h1 {
+        font-size: 2.5rem;
+        color: green;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .request-success-container p {
+        font-size: 1.2rem;
+        color: #495057;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .request-success-container ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .request-success-container li {
+        font-size: 1.1rem;
+        color: #343a40;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .request-success-container li:last-child {
+        border-bottom: none;
+    }
+
+    .request-success-container .btn {
+        display: block;
+        width: fit-content;
+        margin: 2rem auto 0;
+        padding: 0.5rem 1.5rem;
+        font-size: 1rem;
+        color: #ffffff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .request-success-container .btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container request-success-container">
+    <h1>Request Successful</h1>
+    {% if donor %}
+        <p>Your blood request has been matched with a donor. Contact details:</p>
+        <ul>
+            <li><strong>Name:</strong> {{ donor.name }}</li>
+            <li><strong>Phone:</strong> {{ donor.phone }}</li>
+            <li><strong>Blood Type:</strong> {{ donor.blood_type }}</li>
+            <li><strong>City:</strong> {{ donor.city }}</li>
+            <li><strong>Nearest Hospital:</strong> {{ donor.hospital }}</li>
+        </ul>
+        <p>Please contact the donor directly to proceed with your blood request.</p>
+        <a href="{% url 'home' %}" class="btn">Return to Home</a>
+    {% else %}
+        <p>{{ error_message }}</p>
+        <a href="{% url 'home' %}" class="btn">Return to Home</a>
+    {% endif %}
+</div>
+{% endblock %}

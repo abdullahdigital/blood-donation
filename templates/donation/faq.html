@@ -1,0 +1,124 @@
+<!-- faq.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}FAQ{% endblock %}
+
+{% block css %}
+<style>
+    .section-faq {
+        padding: 4rem 0;
+        background: linear-gradient(180deg, #230C0C 0%, #893030 100%);
+    }
+
+    .accordion .card {
+        border: none;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+    }
+
+    .accordion .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .accordion .btn-link {
+        color: #893030;
+        font-weight: bold;
+        text-decoration: none;
+        width: 100%;
+        text-align: left;
+    }
+
+    .accordion .btn-link:hover {
+        text-decoration: none;
+        color: #c82333;
+    }
+
+    .accordion .card-body {
+        background-color: #ffffff;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .accordion .card-header h5 {
+        margin: 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="section-faq">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="text-white text-center mb-5">Frequently Asked Questions</h1>
+                <div class="accordion" id="faqAccordion">
+                    <!-- FAQ Item 1 -->
+                    <div class="card">
+                        <div class="card-header" id="faqHeading1">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                        data-target="#faqCollapse1" aria-expanded="true"
+                                        aria-controls="faqCollapse1">
+                                    What are the eligibility criteria to donate blood?
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="faqCollapse1" class="collapse show" aria-labelledby="faqHeading1"
+                             data-parent="#faqAccordion">
+                            <div class="card-body">
+                                You must be in good health, at least 18 years old, and weigh at least 50 kg (110 lbs).
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="card">
+                        <div class="card-header" id="faqHeading2">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                        data-target="#faqCollapse2" aria-expanded="false"
+                                        aria-controls="faqCollapse2">
+                                    How often can I donate blood?
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="faqCollapse2" class="collapse" aria-labelledby="faqHeading2"
+                             data-parent="#faqAccordion">
+                            <div class="card-body">
+                                In most countries, you can donate whole blood every 56 days.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="card">
+                        <div class="card-header" id="faqHeading3">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                        data-target="#faqCollapse3" aria-expanded="false"
+                                        aria-controls="faqCollapse3">
+                                    Is blood donation safe?
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="faqCollapse3" class="collapse" aria-labelledby="faqHeading3"
+                             data-parent="#faqAccordion">
+                            <div class="card-body">
+                                Yes, blood donation is safe. All equipment used is sterile and disposable.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add more FAQ items as needed -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

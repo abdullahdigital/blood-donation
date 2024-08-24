@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sign Up - Pulse Giver{% endblock %}
+
+{% block css %}
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: linear-gradient(180deg, #893030 0%, #230C0C 100%);
+        font-family: 'Khula', sans-serif;
+    }
+    .nav-link{
+        color:white;
+    }
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    .card-header {
+        background-color: #f0f0f0;
+        border-bottom: none;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    .card-body {
+        padding: 2rem;
+    }
+    .form-group label {
+        font-weight: bold;
+    }
+    .btn-primary1 {
+        background-color:#893030;
+        border-color: #dc3545;
+        color: white;
+    }
+    .login-btn{
+        color:#893030;
+    }
+    .login-btn:hover{
+        color:#893030;
+        font-size: 1.1rem;
+    }
+    .btn-primary1:hover {
+        background-color: #893030;
+        border-color: #893030;
+        color: white;
+    }
+    .form-control{
+        border: 1px solid black;
+        border-radius: 1rem;
+        background-color: #928787;
+;
+        color: white;
+    }
+    .signup-btn{
+        border: 1px solid black;
+        border-radius: 1rem;
+    }
+    .another-acc{
+        color: #c82333;
+    }
+    .another-acc:hover{
+        color: #c82333;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">Sign Up</div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password1">Password</label>
+                            <input type="password" class="form-control" id="password1" name="password1" placeholder="Passowrd" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password2">Confirm Password</label>
+                            <input type="password" class="form-control" id="password2" placeholder="Confirm Passowrd" name="password2" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary1 btn-block mt-4 signup-btn">Sign Up</button>
+                        <span>Already have an account? <a class="another-acc" href="{% url 'login' %}">Login</a></span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

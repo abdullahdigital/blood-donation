@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pulse Giver{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'donation/img/insta.png' %}"  type="image/x-icon" sizes="1256x1256">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {% comment %} <link href="{% static 'donation/css/styles.css' %}" rel="stylesheet"> {% endcomment %}
+    {% block css %}{% endblock %}
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: linear-gradient(180deg, #893030 0%, #230C0C 100%);
+            font-family: 'Khula', sans-serif;
+        }
+        .nav-link{
+            color:white;
+        }
+        .nav-link:hover{
+            color:white;
+        }
+        .navbar{
+            position:relative;
+            padding: 1rem;
+        }
+        .logo{
+            width: 12rem;
+            height:12rem;
+            max-height: 12rem;
+            max-width: 12rem;
+            position:absolute;
+            top:-3rem;
+            left:0;
+        }
+        .footer-section {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+        }
+        .social-icon {
+            width: 30px;
+            margin: 0 10px;
+            opacity: 0.8;
+        }
+        .social-icon:hover {
+            opacity: 1;
+        }
+        .hidden {
+            display: none;
+        }
+         .navbar-toggler {
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+        .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+#navbarNav{
+    margin-top: 1rem;
+}
+.form-control{
+    border: 1px solid black;
+    border-radius: 1rem;
+    /* background-color: #928787; */
+    background-color: white;
+    color: black;
+}
+.login-btn{
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding:0.5rem 1rem;
+    background-color: white;
+    color: #893030;
+    font-size: 18px;
+    font-weight: bold;
+}
+.login-btn:hover{
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding:0.5rem 1rem;
+    background-color:red;
+}
+.white{
+    color:white;
+}
+/* input::placeholder {
+    color: white !important;;
+    opacity: 1;
+} */
+.alert {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.alert-success {
+    background-color: rgba(40, 167, 69, 0.8); /* Semi-transparent green background */
+}
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.8); /* Semi-transparent red background */
+}
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.8); /* Semi-transparent yellow background */
+}
+.alert-info {
+    background-color: rgba(23, 162, 184, 0.8); /* Semi-transparent blue background */
+}
+.login-btn1{
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding:0.5rem 1rem;
+    background-color: white;
+    color: #893030;
+    font-size: 18px;
+    font-weight: bold;
+}
+.login-btn1:hover{
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding:0.5rem 1rem;
+    background-color: white;
+    color: #893030;
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg m-0">
+        <a class="navbar-brand logo-boss" href="{% url 'home' %}" style="height: 3rem;">
+            <img src="{% static 'donation/img/logo.png' %}" class="logo" alt="Pulse Giver Logo" >
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto my-0">
+                <li class="nav-item active">
+                    <a class="nav-link navbar-custom mx-3" href="{% url 'about' %}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar-custom mx-3" href="{% url 'request_blood' %}">Request Blood</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar-custom mx-3" href="{% url 'volunteer' %}">Donor</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link navbar-custom mx-3" href="{% url 'notifications' %}">Notifications</a>
+                    <span id="notification-count" class="badge badge-danger"></span>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link navbar-custom mx-3" href="{% url 'home' %}">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar-custom mx-3" href="{% url 'home' %}">FAQ</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link navbar-custom mx-3" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link navbar-custom mx-3" href="{% url 'login' %}">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    
+    <div id="messages">
+        {% if messages %}
+            {% for message in messages %}
+                <div id="message" class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer-section">
+        <div class="container text-center">
+            <a href="#"><img src="{% static 'donation/img/facebook.png' %}" alt="Facebook" class="social-icon"></a>
+            <a href="#"><img src="{% static 'donation/img/x.png' %}" alt="Twitter" class="social-icon"></a>
+            <a href="#"><img src="{% static 'donation/img/insta.png' %}" alt="Instagram" class="social-icon"></a>
+        </div>
+    </footer>
+
+<!-- Example HTML for showing the notification count -->
+<div id="notification-count"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch("{% url 'notification_count' %}")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('notification-count').innerText = data.count;
+            });
+            .catch(error => console.error('Fetch error:', error));
+    });
+</script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function fetchNotificationCount() {
+                fetch("{% url 'notification_count' %}")
+                    .then(response => response.json())
+                    .then(data => {
+                        const countElement = document.getElementById('notification-count');
+                        if (data.count > 0) {
+                            countElement.textContent = data.count;
+                            countElement.style.display = 'inline';
+                        } else {
+                            countElement.style.display = 'none';
+                        }
+                    });
+            }
+    
+            // Fetch notification count initially
+            fetchNotificationCount();
+    
+            // Fetch notification count every 30 seconds
+            setInterval(fetchNotificationCount, 30000);
+        });
+    </script>
+    
+
+
+    <script>
+        // Function to hide the message after 3 seconds (3000 milliseconds)
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var messageElement = document.getElementById('message');
+                if (messageElement) {
+                    messageElement.classList.add('hidden');
+                }
+            }, 5000);
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
